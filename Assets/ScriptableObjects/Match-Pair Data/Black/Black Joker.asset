@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b56f68e1036db42952df69c508384d, type: 3}
+  m_Name: Black Joker
+  m_EditorClassIdentifier: 
+  pairId: 9da77cd5c8a6454a8c174538fb2d5812
+  useSameFaceForBoth: 1
+  faceA:
+    sprite: {fileID: 21300000, guid: 0b7f3e2a2184a9d42b15b090e2d58f14, type: 3}
+    label: Black Joker
+    tint: {r: 1, g: 1, b: 1, a: 1}
+    sound: {fileID: 0}
+  faceB:
+    sprite: {fileID: 0}
+    label: 
+    tint: {r: 1, g: 1, b: 1, a: 1}
+    sound: {fileID: 0}

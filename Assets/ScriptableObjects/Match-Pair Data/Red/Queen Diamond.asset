@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b56f68e1036db42952df69c508384d, type: 3}
+  m_Name: Queen Diamond
+  m_EditorClassIdentifier: 
+  pairId: b032b658ed934ea19a09359fbc65e58c
+  useSameFaceForBoth: 1
+  faceA:
+    sprite: {fileID: 21300000, guid: 3f2a232b78cd57b4fa24f51286800c4d, type: 3}
+    label: Queen Diamond
+    tint: {r: 1, g: 1, b: 1, a: 1}
+    sound: {fileID: 0}
+  faceB:
+    sprite: {fileID: 0}
+    label: 
+    tint: {r: 1, g: 1, b: 1, a: 1}
+    sound: {fileID: 0}

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b56f68e1036db42952df69c508384d, type: 3}
+  m_Name: Ace Hearts
+  m_EditorClassIdentifier: 
+  pairId: 0aced631e19f4ff8a53c755e55f11a7e
+  useSameFaceForBoth: 1
+  faceA:
+    sprite: {fileID: 21300000, guid: d2418b93e0f408543acb9ab19a498634, type: 3}
+    label: Ace Hearts
+    tint: {r: 1, g: 1, b: 1, a: 1}
+    sound: {fileID: 0}
+  faceB:
+    sprite: {fileID: 0}
+    label: 
+    tint: {r: 1, g: 1, b: 1, a: 1}
+    sound: {fileID: 0}
