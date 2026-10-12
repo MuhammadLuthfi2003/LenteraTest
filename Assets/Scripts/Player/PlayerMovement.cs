@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player Input")]
     [SerializeField] private PlayerInput playerInput;
 
+    [Header("Camera")]
+    [SerializeField] private Transform cameraTransform;
+
     [Header("Movement Speeds")]
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 8f;
@@ -42,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 moveInput;
     Vector3 moveDirection;
 
-    private void Awake()
+    private void OnEnable()
     {
         if (playerInput == null)
         {
@@ -109,12 +112,13 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        if (cameraTransform == null && Camera.main != null)
+            cameraTransform = Camera.main.transform;
     }
 
     void OnMove(InputAction.CallbackContext context)
     {
-        moveInput = context.ReadValue<Vector2>();
-        moveDirection = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
+        moveInput = Vector2.ClampMagnitude(context.ReadValue<Vector2>(), 1f);
     }
 
     void OnJump(InputAction.CallbackContext context)
@@ -155,10 +159,22 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
+        // Camera-relative direction (flattened so camera pitch doesn't slow down)
+        Vector3 camForward = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up).normalized;
+        Vector3 camRight = Vector3.ProjectOnPlane(cameraTransform.right, Vector3.up).normalized;
+        Vector3 moveDirection = camForward * moveInput.y + camRight * moveInput.x;
+
+        // Face the movement direction 
+        if (moveDirection.sqrMagnitude > 0.001f)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime);
+        }
+
         // Speed check
         float currentSpeed = sprintState.Equals(SprintState.Sprinting) ? sprintSpeed : walkSpeed;
         characterController.Move(moveDirection * currentSpeed * Time.fixedDeltaTime);
-
+        
         // gravity application
         velocity.y += gravity * Time.deltaTime;
 
