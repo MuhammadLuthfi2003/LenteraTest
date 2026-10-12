@@ -215,8 +215,10 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (targetTransform == currentTargetTransform) return;
 
+        CurrentTarget?.OnLostFocus(this);
         currentTargetTransform = targetTransform;
         CurrentTarget = target;
+        CurrentTarget?.OnFocus(this);
         TargetChanged?.Invoke(target);
     }
 

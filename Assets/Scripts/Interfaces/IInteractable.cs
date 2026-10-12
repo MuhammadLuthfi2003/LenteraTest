@@ -4,4 +4,7 @@ public interface IInteractable
     bool CanInteract(PlayerInteraction interactor);
     void Interact(PlayerInteraction interactor);
 
+    void OnFocus(PlayerInteraction interactor);
+    void OnLostFocus(PlayerInteraction interactor);
+
 }
