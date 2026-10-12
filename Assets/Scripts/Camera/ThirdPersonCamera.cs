@@ -5,13 +5,16 @@ using UnityEngine.InputSystem;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
-
-
     [Header("Follow & Orbit Settings")]
     [SerializeField] private Transform target; 
-    [SerializeField] private float distance = 5.0f;
     [SerializeField] private float mouseSensitivity = 100f;
     [SerializeField] private Vector2 verticalLookLimits = new Vector2(-20f, 60f);
+
+    [Header("Camera Settings")]
+    [SerializeField] private float mouseScrollStep = 0.001f;
+    [SerializeField] private float distance = 5.0f;
+    [SerializeField] private float minDistance = 1.0f;
+    [SerializeField] private float maxDistance = 10.0f;
 
     [Header("Smoothness")]
     [SerializeField] private float smoothTime = 0.12f;
@@ -22,8 +25,6 @@ public class ThirdPersonCamera : MonoBehaviour
     private Vector3 rotationSmoothVelocity;
 
     private PlayerLook playerLook;
-
-    InputAction LookAction;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,7 @@ public class ThirdPersonCamera : MonoBehaviour
         if (playerLook != null)
         {
             playerLook.OnLookInput += ReadCursorValues;
+            playerLook.OnScrollInput += ReadScrollValues;
         }
     }
 
@@ -47,6 +49,7 @@ public class ThirdPersonCamera : MonoBehaviour
         if (playerLook != null)
         {
             playerLook.OnLookInput -= ReadCursorValues;
+            playerLook.OnScrollInput -= ReadScrollValues;
         }
     }
 
@@ -69,6 +72,13 @@ public class ThirdPersonCamera : MonoBehaviour
 
         // clamp
         rotationY = Mathf.Clamp(rotationY, verticalLookLimits.x, verticalLookLimits.y);
+    }
+
+    void ReadScrollValues(float scroll)
+    {
+        scroll = Mathf.Sign(scroll) * Mathf.Pow(Mathf.Abs(scroll), 1.5f); // Apply a non-linear curve to the scroll input
+        distance -= scroll * mouseScrollStep; // Adjust the multiplier for sensitivity
+        distance = Mathf.Clamp(distance, minDistance, maxDistance);
     }
 
 }

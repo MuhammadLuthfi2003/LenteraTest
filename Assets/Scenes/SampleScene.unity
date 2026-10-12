@@ -428,9 +428,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1719417537}
-  distance: 5
   mouseSensitivity: 100
   verticalLookLimits: {x: -20, y: 60}
+  mouseScrollStep: 0.001
+  distance: 5
+  minDistance: 1
+  maxDistance: 10
   smoothTime: 0.12
 --- !u!1 &1719417532
 GameObject:

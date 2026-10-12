@@ -10,8 +10,10 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
 
     public event Action<Vector2> OnLookInput;
+    public event Action<float> OnScrollInput;
 
     InputAction LookAction;
+    InputAction ScrollAction;
 
     private void OnEnable()
     {
@@ -26,11 +28,20 @@ public class PlayerLook : MonoBehaviour
             if (inputActions != null)
             {
                 LookAction = inputActions.FindAction("Look");
+                ScrollAction = inputActions.FindAction("Scroll");
+
                 if (LookAction != null)
                 {
                     LookAction.Enable();
                     LookAction.performed += OnLookPerformed;
                     LookAction.canceled += OnLookPerformed;
+                }
+
+                if (ScrollAction != null)
+                {
+                    ScrollAction.Enable();
+                    ScrollAction.performed += OnScrollPerformed;
+                    ScrollAction.canceled += OnScrollPerformed;
                 }
             }
         }
@@ -44,10 +55,22 @@ public class PlayerLook : MonoBehaviour
             LookAction.performed -= OnLookPerformed;
             LookAction.canceled -= OnLookPerformed;
         }
+
+        if (ScrollAction != null)
+        {
+            ScrollAction.Disable();
+            ScrollAction.performed -= OnScrollPerformed;
+            ScrollAction.canceled -= OnScrollPerformed;
+        }
     }
 
     void OnLookPerformed(InputAction.CallbackContext context)
     {
         OnLookInput?.Invoke(context.ReadValue<Vector2>());
+    }
+
+    void OnScrollPerformed(InputAction.CallbackContext context)
+    {
+        OnScrollInput?.Invoke(context.ReadValue<float>());
     }
 }
