@@ -8,6 +8,9 @@ public class InteractPodium : MonoBehaviour, IInteractable
     [Header("On Interact Event")]
     public UnityEvent onInteract;
 
+    [Header("On Exit Event")]
+    public UnityEvent onExit;
+
     [Header("Interaction Marker")]
     public GameObject interactionMarker;
     public string Prompt => throw new System.NotImplementedException();
@@ -34,7 +37,13 @@ public class InteractPodium : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteraction interactor)
     {
-        throw new System.NotImplementedException();
+        print("interact");
+        onInteract?.Invoke();
+    }
+
+    public void CloseInteract(PlayerInteraction interactor)
+    {
+        onExit?.Invoke();
     }
 
     public void OnFocus(PlayerInteraction interactor)

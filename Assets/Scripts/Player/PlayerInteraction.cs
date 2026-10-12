@@ -222,6 +222,24 @@ public class PlayerInteraction : MonoBehaviour
         TargetChanged?.Invoke(target);
     }
 
+    // ------------------------------------------------------------- Toggle Controls
+
+    public void ToggleInteraction(bool toggle)
+    {
+        if (InteractAction != null)
+        {
+            if (toggle)
+            {
+                InteractAction.Enable();
+            }
+            else
+            {
+                InteractAction.Disable();
+            }
+        }
+    }
+
+
     // ---------------------------------------------------------------- Gizmos
 
     private void OnDrawGizmos()

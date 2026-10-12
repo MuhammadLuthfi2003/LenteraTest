@@ -73,4 +73,32 @@ public class PlayerLook : MonoBehaviour
     {
         OnScrollInput?.Invoke(context.ReadValue<float>());
     }
+
+    public void ToggleCameraControl(bool toggle)
+    {
+        if (toggle)
+        {
+            if (LookAction != null)
+            {
+                LookAction.Enable();
+            }
+
+            if (ScrollAction != null)
+            {
+                ScrollAction.Enable();
+            }
+        }
+        else
+        {
+            if (LookAction != null)
+            {
+                LookAction.Disable();
+            }
+
+            if (ScrollAction != null)
+            {
+                ScrollAction.Disable();
+            }
+        }
+    }
 }

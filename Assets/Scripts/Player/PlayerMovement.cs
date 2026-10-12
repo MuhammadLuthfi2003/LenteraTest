@@ -181,4 +181,42 @@ public class PlayerMovement : MonoBehaviour
         // Move the character vertically (Gravity / Jumping)
         characterController.Move(velocity * Time.deltaTime);
     }
+
+    public void ToggleControls(bool toggle)
+    {
+        if (toggle)
+        {
+            if (moveAction != null)
+            {
+                moveAction.Enable();
+            }
+
+            if (jumpAction != null)
+            {
+                jumpAction.Enable();
+            }
+
+            if (sprintAction != null)
+            {
+                sprintAction.Enable();
+            }
+        }
+        else
+        {
+            if (moveAction != null)
+            {
+                moveAction.Disable();
+            }
+
+            if (jumpAction != null)
+            {
+                jumpAction.Disable();
+            }
+
+            if (sprintAction != null)
+            {
+                sprintAction.Disable();
+            }
+        }
+    }
 }
