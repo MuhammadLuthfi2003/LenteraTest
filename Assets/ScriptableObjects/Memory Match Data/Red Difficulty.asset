@@ -12,10 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58fcd25f8162c6842b97a9ae6bb068a0, type: 3}
   m_Name: Red Difficulty
   m_EditorClassIdentifier: 
-  rows: 3
-  columns: 4
-  pairPool: []
-  cardBack: {fileID: 0}
+  rows: 5
+  columns: 5
+  pairPool:
+  - {fileID: 11400000, guid: 0da8f384f922941439a43e08c9133aa1, type: 2}
+  - {fileID: 11400000, guid: b53da006135a53747a4f4903b0236175, type: 2}
+  - {fileID: 11400000, guid: a5b8f6ca5f9ed3540bed0c98b4e0318c, type: 2}
+  - {fileID: 11400000, guid: ea7b6ecb94741d14eb36ee295b6dc7cf, type: 2}
+  - {fileID: 11400000, guid: 9efbd550e24dc68488139c1d6a80d76b, type: 2}
+  - {fileID: 11400000, guid: 692174d03558ea848be7ac52f917d02e, type: 2}
+  - {fileID: 11400000, guid: 6cebe3157af4c724090e60a24e90de5d, type: 2}
+  - {fileID: 11400000, guid: edc0bd6335163a54eb647db9ffe75cc3, type: 2}
+  - {fileID: 11400000, guid: b96cde9d61782ce48a191a0e6649aae4, type: 2}
+  cardBack: {fileID: 21300000, guid: 0a6700d8fab1bf0438982cc8ef2d48d4, type: 3}
   cardBackTint: {r: 1, g: 1, b: 1, a: 1}
   flipDuration: 0.25
   mismatchRevealTime: 0.8

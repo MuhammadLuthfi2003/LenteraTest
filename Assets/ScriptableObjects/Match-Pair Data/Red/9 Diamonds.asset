@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6b56f68e1036db42952df69c508384d, type: 3}
   m_Name: 9 Diamonds
   m_EditorClassIdentifier: 
-  pairId: 
+  pairId: cf7db0410e6442f58aacf564d6c7a8f0
   useSameFaceForBoth: 1
   faceA:
-    sprite: {fileID: 0}
-    label: 
+    sprite: {fileID: 21300000, guid: e252a8d390cceb1468e7bfa89efbc6c4, type: 3}
+    label: 9 Diamonds
     tint: {r: 1, g: 1, b: 1, a: 1}
     sound: {fileID: 0}
   faceB:

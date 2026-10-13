@@ -12,9 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58fcd25f8162c6842b97a9ae6bb068a0, type: 3}
   m_Name: Black Difficulty
   m_EditorClassIdentifier: 
-  rows: 3
+  rows: 4
   columns: 4
-  pairPool: []
+  pairPool:
+  - {fileID: 11400000, guid: 8d0d38ada587c50419f40df47c33ec57, type: 2}
+  - {fileID: 11400000, guid: a5dc1f9e8dcf77a48a534701bd1b54ca, type: 2}
+  - {fileID: 11400000, guid: 1b3b936ea5824c8499267bc3bc2f2675, type: 2}
+  - {fileID: 11400000, guid: 508dafc2a93f7264788978e374e6fdb2, type: 2}
+  - {fileID: 11400000, guid: 7ea0902f688f2d042adbe352795b9238, type: 2}
+  - {fileID: 11400000, guid: 9585114340019f54abdc26fbc4239dd7, type: 2}
+  - {fileID: 11400000, guid: 23b4f68223b1ba54b98dddc873c7e7a3, type: 2}
+  - {fileID: 11400000, guid: 00e969d16dafda6489b918969465ac9a, type: 2}
+  - {fileID: 11400000, guid: 00e969d16dafda6489b918969465ac9a, type: 2}
   cardBack: {fileID: 21300000, guid: aec062983533de3448de85f008f8d95a, type: 3}
   cardBackTint: {r: 1, g: 1, b: 1, a: 1}
   flipDuration: 0.25

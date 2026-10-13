@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6b56f68e1036db42952df69c508384d, type: 3}
   m_Name: 7 Hearts
   m_EditorClassIdentifier: 
-  pairId: 
+  pairId: a4f1445ed30340b2b884e2563dc0a45a
   useSameFaceForBoth: 1
   faceA:
-    sprite: {fileID: 0}
-    label: 
+    sprite: {fileID: 21300000, guid: ea3927462586d8d47a73c0970d15eb41, type: 3}
+    label: 7 Hearts
     tint: {r: 1, g: 1, b: 1, a: 1}
     sound: {fileID: 0}
   faceB:
