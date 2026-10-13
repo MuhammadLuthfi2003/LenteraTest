@@ -24,6 +24,19 @@ public class PuzzleUI : MonoBehaviour
 
     private GridLayoutGroup layout;
 
+    private PuzzleManager puzzleManager;
+    private GameManager gameManager;
+
+    private void OnEnable()
+    {
+        PuzzleManager.OnPuzzleSolved += FinishGame;
+    }
+
+    private void OnDisable()
+    {
+        PuzzleManager.OnPuzzleSolved -= FinishGame;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +45,12 @@ public class PuzzleUI : MonoBehaviour
         if (PuzzlePanel != null)
         {
             PuzzlePanel.SetActive(false);
+        }
+
+        if (GameManager.Instance != null && gameManager == null)
+        {
+            gameManager = GameManager.Instance;
+            puzzleManager = gameManager.puzzleManager;
         }
     }
 
@@ -95,6 +114,17 @@ public class PuzzleUI : MonoBehaviour
         layout.childAlignment = TextAnchor.MiddleCenter;
         layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         layout.constraintCount = columns;
+    }
+
+    public void FinishGame()
+    {
+        if (gameManager && puzzleManager)
+        {
+            gameManager.ToggleCursor(true);
+            gameManager.TogglePlayerControls(true);
+            puzzleManager.StopPuzzle();
+            TogglePuzzlePanel(false);
+        }
     }
 
 }

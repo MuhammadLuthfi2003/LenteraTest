@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MemoryMatch;
+using System;
 
 public enum PuzzleState
 {
@@ -29,9 +30,12 @@ public class PuzzleManager : MonoBehaviour
     [SerializeField] private Card firstChosenCard;
     [SerializeField] private Card secondChosenCard;
     private int currentPickedCount = 0;
+    private int matchedCardCount = 0;
 
     private PuzzleState currentState = PuzzleState.None;
     public PuzzleState State { get { return currentState; } }
+
+    public static event Action OnPuzzleSolved;
 
     private void OnEnable()
     {
@@ -115,7 +119,6 @@ public class PuzzleManager : MonoBehaviour
         foreach (var card in cards)
             if (card != null)
             {
-                print(card.name);
                 Destroy(card.gameObject);
             }
         cards.Clear();
@@ -156,7 +159,7 @@ public class PuzzleManager : MonoBehaviour
     {
         for (int i = list.Count - 1; i > 0; i--)
         {
-            int j = Random.Range(0, i + 1);
+            int j = UnityEngine.Random.Range(0, i + 1);
             (list[i], list[j]) = (list[j], list[i]);
         }
     }
@@ -199,12 +202,19 @@ public class PuzzleManager : MonoBehaviour
             // if same, disable the card
             firstChosenCard.ToggleButton(false);
             secondChosenCard.ToggleButton(false);
+            matchedCardCount += 2;
         }
 
         firstChosenCard = null;
         secondChosenCard = null;
         currentPickedCount = 0;
         SetPuzzleState(PuzzleState.None);
+
+        // if all cards have been matched
+        if (matchedCardCount == cards.Count)
+        {
+            OnPuzzleSolved?.Invoke();
+        }
     }
 
 }
