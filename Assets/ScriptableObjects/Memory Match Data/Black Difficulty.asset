@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58fcd25f8162c6842b97a9ae6bb068a0, type: 3}
   m_Name: Black Difficulty
   m_EditorClassIdentifier: 
-  rows: 4
-  columns: 4
+  rows: 2
+  columns: 8
   pairPool:
   - {fileID: 11400000, guid: 8d0d38ada587c50419f40df47c33ec57, type: 2}
   - {fileID: 11400000, guid: a5dc1f9e8dcf77a48a534701bd1b54ca, type: 2}

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58fcd25f8162c6842b97a9ae6bb068a0, type: 3}
   m_Name: Red Difficulty
   m_EditorClassIdentifier: 
-  rows: 5
-  columns: 5
+  rows: 3
+  columns: 4
   pairPool:
   - {fileID: 11400000, guid: 0da8f384f922941439a43e08c9133aa1, type: 2}
   - {fileID: 11400000, guid: b53da006135a53747a4f4903b0236175, type: 2}
