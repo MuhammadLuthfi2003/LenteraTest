@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,6 +45,9 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 moveInput;
     Vector3 moveDirection;
+
+    public event Action<float> OnMoveAction;
+    public event Action OnJumped;
 
     private void OnEnable()
     {
@@ -126,6 +130,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            OnJumped?.Invoke();
         }
     }
 
@@ -173,6 +178,18 @@ public class PlayerMovement : MonoBehaviour
 
         // Speed check
         float currentSpeed = sprintState.Equals(SprintState.Sprinting) ? sprintSpeed : walkSpeed;
+
+        if (moveInput.sqrMagnitude <= 0)
+        {
+            // sends signal to animator
+            OnMoveAction?.Invoke(0);
+        }
+        else
+        {
+            // sends signal to animator
+            OnMoveAction?.Invoke(currentSpeed);
+        }
+
         characterController.Move(moveDirection * currentSpeed * Time.fixedDeltaTime);
         
         // gravity application
