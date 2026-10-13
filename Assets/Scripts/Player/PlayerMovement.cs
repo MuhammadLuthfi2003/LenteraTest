@@ -78,14 +78,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 jumpAction.Enable();
                 jumpAction.performed += OnJump;
-                jumpAction.canceled += OnJump;
             }
 
             if (sprintAction != null)
             {
                 sprintAction.Enable();
                 sprintAction.performed += OnSprint;
-                sprintAction.canceled += OnSprint;
             }
         }
     }
@@ -102,13 +100,11 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpAction.Disable();
             jumpAction.performed -= OnJump;
-            jumpAction.canceled -= OnJump;
         }
         if (sprintAction != null)
         {
             sprintAction.Disable();
             sprintAction.performed -= OnSprint;
-            sprintAction.canceled -= OnSprint;
         }
     }
 
@@ -179,24 +175,17 @@ public class PlayerMovement : MonoBehaviour
         // Speed check
         float currentSpeed = sprintState.Equals(SprintState.Sprinting) ? sprintSpeed : walkSpeed;
 
-        if (moveInput.sqrMagnitude <= 0)
-        {
-            // sends signal to animator
-            OnMoveAction?.Invoke(0);
-        }
-        else
-        {
-            // sends signal to animator
-            OnMoveAction?.Invoke(currentSpeed);
-        }
+        // sends signal
+        OnMoveAction?.Invoke(moveInput.sqrMagnitude <= 0 ? 0f : currentSpeed);
 
-        characterController.Move(moveDirection * currentSpeed * Time.fixedDeltaTime);
-        
         // gravity application
-        velocity.y += gravity * Time.deltaTime;
+        velocity.y += gravity * Time.fixedDeltaTime;
 
-        // Move the character vertically (Gravity / Jumping)
-        characterController.Move(velocity * Time.deltaTime);
+        // Combine horizontal movement and vertical velocity into one motion
+        Vector3 horizontal = moveDirection * currentSpeed;
+        Vector3 motion = horizontal + velocity;
+
+        characterController.Move(motion * Time.fixedDeltaTime);
     }
 
     public void ToggleControls(bool toggle)
