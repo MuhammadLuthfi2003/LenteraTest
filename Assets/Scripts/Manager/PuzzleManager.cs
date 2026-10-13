@@ -5,7 +5,6 @@ using MemoryMatch;
 
 public class PuzzleManager : MonoBehaviour
 {
-    public static PuzzleManager Instance { get; private set; }
 
     [Header("Puzzle UI Refrence")]
     [SerializeField] PuzzleUI puzzleUI;
@@ -18,35 +17,32 @@ public class PuzzleManager : MonoBehaviour
     [Tooltip("Show every card face-up so you can check the shuffle.")]
     [SerializeField] private bool revealAllForTesting = false;
 
-
     private readonly List<Card> cards = new List<Card>();
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+    [Header("Readonly")]
+    [SerializeField] private Card firstChosenCard;
+    [SerializeField] private Card secondChosenCard;
+    private int currentPickedCount = 0;
 
-        Instance = this;
+    private void OnEnable()
+    {
+        Card.OnCardChosen += HandleChosenCard;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnDisable()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Card.OnCardChosen -= HandleChosenCard;
     }
 
     public void StartPuzzle(MemoryMatchData data)
     {
+        if (GameManager.Instance == null || GameManager.Instance.State.Equals(GameStates.InPuzzle))
+        {
+            return;
+        }
+
         Cursor.lockState = CursorLockMode.None;
+        GameManager.Instance.SetState(GameStates.InPuzzle);
 
         this.data = data;
 
@@ -80,7 +76,7 @@ public class PuzzleManager : MonoBehaviour
         // 3. Spawn a card per grid cell and hand it the next entry from the shuffled deck.
         for (int i = 0; i < data.TotalCards; i++)
         {
-            Card card = Instantiate(cardPrefab, puzzleUI.transform);
+            Card card = Instantiate(cardPrefab, puzzleUI.gridPanel.transform);
             card.name = $"Card_{i / data.Columns}_{i % data.Columns}";
 
             var (pair, side) = deck[i];
@@ -132,6 +128,20 @@ public class PuzzleManager : MonoBehaviour
         {
             int j = Random.Range(0, i + 1);
             (list[i], list[j]) = (list[j], list[i]);
+        }
+    }
+
+    private void HandleChosenCard(Card card)
+    {
+        if (GameManager.Instance == null || !GameManager.Instance.State.Equals(GameStates.InPuzzle))
+        if (card == null) return;
+
+        switch (currentPickedCount)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
         }
     }
 

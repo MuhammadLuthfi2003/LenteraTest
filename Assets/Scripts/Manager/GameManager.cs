@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum GameStates
+[System.Serializable]
+public enum GameStates
 {
     Running,
     InPuzzle,
@@ -15,7 +16,11 @@ public class GameManager : MonoBehaviour
     [Header("Player Gameobject")]
     [SerializeField] PlayerMovement player;
 
-    private GameStates state = GameStates.Running;
+    [Header("Managers")]
+    [SerializeField] PuzzleManager puzzleManager;
+
+    private GameStates state = GameStates.Running; 
+    public GameStates State { get { return state; } }
 
     private void Awake()
     {
@@ -48,5 +53,10 @@ public class GameManager : MonoBehaviour
         playerLook.ToggleCameraControl(toggle);
         playerInteraction.ToggleInteraction(toggle);
         player.ToggleControls(toggle);
+    }
+
+    public void SetState(GameStates state)
+    {
+        this.state = state;
     }
 }

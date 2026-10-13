@@ -1,4 +1,5 @@
 using MemoryMatch;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,6 +18,8 @@ public class Card : MonoBehaviour
     public bool IsFaceUp { get; private set; }
 
     public string PairId => Pair != null ? Pair.PairId : null;
+
+    public static Action<Card> OnCardChosen;
 
     public void Setup(MatchPairData pair, int side, Sprite back, Color backTint)
     {
@@ -54,6 +57,11 @@ public class Card : MonoBehaviour
         if (faceImage != null) faceImage.gameObject.SetActive(faceUp);
         if (label != null) label.gameObject.SetActive(faceUp && !string.IsNullOrEmpty(label.text));
         if (backImage != null) backImage.gameObject.SetActive(!faceUp);
+    }
+
+    public void SendCardData()
+    {
+        OnCardChosen?.Invoke(this);
     }
 
 }

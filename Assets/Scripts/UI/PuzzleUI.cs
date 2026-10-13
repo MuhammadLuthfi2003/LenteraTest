@@ -6,10 +6,21 @@ using UnityEngine.UI;
 
 public class PuzzleUI : MonoBehaviour
 {
-    private GameObject PuzzlePanel;
+    [Header("Panel Settings")]
+    [SerializeField] private GameObject PuzzlePanel;
+    [SerializeField] public GameObject gridPanel;
 
+    [Tooltip("Resize the grid panel to Panel Size. If off, the panel keeps the size set in the scene.")]
+    [SerializeField] private bool useCustomPanelSize = false;
+    [SerializeField] private Vector2 panelSize = new Vector2(600f, 600f);
+
+    [Header("Grid Settings")]
     [SerializeField] private Vector2 spacing = new Vector2(10f, 10f);
     [SerializeField] private RectOffset padding = new RectOffset();
+
+    [Tooltip("On: cells are the largest squares that fit the panel. Off: uses Cell Size below.")]
+    [SerializeField] private bool autoCellSize = true;
+    [SerializeField] private Vector2 cellSize = new Vector2(100f, 100f);
 
     private GridLayoutGroup layout;
 
@@ -36,19 +47,49 @@ public class PuzzleUI : MonoBehaviour
 
     public void ConfigureLayout(int columns, int rows)
     {
-        if (layout == null && !TryGetComponent(out layout))
-            layout = gameObject.AddComponent<GridLayoutGroup>();
+        if (gridPanel == null)
+        {
+            Debug.LogError("[PuzzleUI] Assign the grid panel.", this);
+            return;
+        }
 
-        var rect = (RectTransform)transform;
+        if (layout == null && !gridPanel.TryGetComponent(out layout))
+            layout = gridPanel.AddComponent<GridLayoutGroup>();
 
-        // Largest square cell that fits every row and column inside this rect.
-        float availableW = rect.rect.width - padding.horizontal - spacing.x * (columns - 1);
-        float availableH = rect.rect.height - padding.vertical - spacing.y * (rows - 1);
-        float cell = Mathf.Max(0f, Mathf.Min(availableW / columns, availableH / rows));
+        var rect = (RectTransform)gridPanel.transform;
+
+        // Optionally resize the panel (works with any anchor setup).
+        if (useCustomPanelSize)
+        {
+            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, panelSize.x);
+            rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, panelSize.y);
+        }
+
+        float panelW = useCustomPanelSize ? panelSize.x : rect.rect.width;
+        float panelH = useCustomPanelSize ? panelSize.y : rect.rect.height;
+
+        Vector2 cell;
+        if (autoCellSize)
+        {
+            // Largest square cell that fits every row and column inside the panel.
+            float availableW = panelW - padding.horizontal - spacing.x * (columns - 1);
+            float availableH = panelH - padding.vertical - spacing.y * (rows - 1);
+            float size = Mathf.Max(0f, Mathf.Min(availableW / columns, availableH / rows));
+            cell = new Vector2(size, size);
+        }
+        else
+        {
+            cell = new Vector2(Mathf.Max(1f, cellSize.x), Mathf.Max(1f, cellSize.y));
+
+            float neededW = cell.x * columns + spacing.x * (columns - 1) + padding.horizontal;
+            float neededH = cell.y * rows + spacing.y * (rows - 1) + padding.vertical;
+            if (neededW > panelW || neededH > panelH)
+                Debug.LogWarning($"[PuzzleUI] Grid needs {neededW}x{neededH} but the panel is {panelW}x{panelH}. Cards will overflow.", this);
+        }
 
         layout.padding = padding;
         layout.spacing = spacing;
-        layout.cellSize = new Vector2(cell, cell);
+        layout.cellSize = cell;
         layout.startCorner = GridLayoutGroup.Corner.UpperLeft;
         layout.startAxis = GridLayoutGroup.Axis.Horizontal;
         layout.childAlignment = TextAnchor.MiddleCenter;
