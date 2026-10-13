@@ -55,6 +55,18 @@ public class GameManager : MonoBehaviour
         player.ToggleControls(toggle);
     }
 
+    public void ToggleCursor(bool toggle)
+    {
+        if (toggle)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
+
     public void SetState(GameStates state)
     {
         this.state = state;

@@ -41,7 +41,7 @@ public class PuzzleManager : MonoBehaviour
             return;
         }
 
-        Cursor.lockState = CursorLockMode.None;
+        GameManager.Instance.ToggleCursor(false);
         GameManager.Instance.SetState(GameStates.InPuzzle);
 
         this.data = data;
@@ -88,11 +88,26 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
+    public void StopPuzzle()
+    {
+        if (GameManager.Instance == null || GameManager.Instance.State.Equals(GameStates.Running))
+        {
+            return;
+        }
+
+        GameManager.Instance.SetState(GameStates.Running);
+        Clear();
+    }
+
 
     public void Clear()
     {
         foreach (var card in cards)
-            if (card != null) Destroy(card);
+            if (card != null)
+            {
+                print(card.name);
+                Destroy(card.gameObject);
+            }
         cards.Clear();
     }
 
