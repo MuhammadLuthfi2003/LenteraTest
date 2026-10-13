@@ -275,19 +275,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 448873807144669485}
         m_TargetAssemblyTypeName: Card, Assembly-CSharp
-        m_MethodName: SetFaceUp
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 448873807144669485}
-        m_TargetAssemblyTypeName: Card, Assembly-CSharp
-        m_MethodName: SendCardData
+        m_MethodName: OnCardClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -295,7 +283,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &448873807144669485
 MonoBehaviour:
@@ -309,6 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35404cfc996fdcb48b92bd368061d304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 4074270949376182628}
   faceImage: {fileID: 2406227785439925595}
   backImage: {fileID: 3587368306794594686}
   label: {fileID: 0}

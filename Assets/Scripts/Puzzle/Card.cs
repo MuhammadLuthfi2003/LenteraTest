@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class Card : MonoBehaviour
 {
     [Header("Prefab References")]
+    [SerializeField] private Button button;
     [SerializeField] private Image faceImage;   // shows the pair's sprite
     [SerializeField] private Image backImage;   // shows the card back
     [SerializeField] private TMP_Text label;    // optional
@@ -50,6 +51,16 @@ public class Card : MonoBehaviour
         SetFaceUp(false);
     }
 
+    public void OnCardClicked()
+    {
+        if (GameManager.Instance == null || GameManager.Instance.puzzleManager == null) return;
+        PuzzleManager manager = GameManager.Instance.puzzleManager;
+
+        if (manager.State.Equals(PuzzleState.Checking)) return;        
+        SetFaceUp(true);
+        SendCardData();
+    }
+
     public void SetFaceUp(bool faceUp)
     {
         IsFaceUp = faceUp;
@@ -64,4 +75,10 @@ public class Card : MonoBehaviour
         OnCardChosen?.Invoke(this);
     }
 
+    public void ToggleButton(bool Toggle)
+    {
+        button.enabled = Toggle;
+        faceImage.gameObject.SetActive(Toggle);
+        backImage.gameObject.SetActive(Toggle);
+    }
 }

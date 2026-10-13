@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using MemoryMatch;
 
+public enum PuzzleState
+{
+    None,
+    Checking,
+}
+
 public class PuzzleManager : MonoBehaviour
 {
 
@@ -23,6 +29,9 @@ public class PuzzleManager : MonoBehaviour
     [SerializeField] private Card firstChosenCard;
     [SerializeField] private Card secondChosenCard;
     private int currentPickedCount = 0;
+
+    private PuzzleState currentState = PuzzleState.None;
+    public PuzzleState State { get { return currentState; } }
 
     private void OnEnable()
     {
@@ -97,6 +106,7 @@ public class PuzzleManager : MonoBehaviour
 
         GameManager.Instance.SetState(GameStates.Running);
         Clear();
+        SetPuzzleState(PuzzleState.None);
     }
 
 
@@ -109,6 +119,11 @@ public class PuzzleManager : MonoBehaviour
                 Destroy(card.gameObject);
             }
         cards.Clear();
+    }
+
+    public void SetPuzzleState(PuzzleState newState)
+    {
+        currentState = newState;
     }
 
 
@@ -146,6 +161,7 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
+    // memory match logic
     private void HandleChosenCard(Card card)
     {
         if (GameManager.Instance == null || !GameManager.Instance.State.Equals(GameStates.InPuzzle))
@@ -154,10 +170,41 @@ public class PuzzleManager : MonoBehaviour
         switch (currentPickedCount)
         {
             case 0:
+                firstChosenCard = card;
+                currentPickedCount++;
                 break;
             case 1:
+                secondChosenCard = card;
+                SetPuzzleState(PuzzleState.Checking);
+                StartCoroutine(CheckPairs(1));
                 break;
         }
+    }
+
+    IEnumerator CheckPairs(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (firstChosenCard == null || secondChosenCard == null) yield break;
+        string firstId = firstChosenCard.PairId;
+        string secondId = secondChosenCard.PairId;
+
+        if (firstId == null || secondId == null) yield break;
+        if (firstId != secondId)
+        {
+            firstChosenCard.SetFaceUp(false);
+            secondChosenCard.SetFaceUp(false);
+        }
+        else
+        {
+            // if same, disable the card
+            firstChosenCard.ToggleButton(false);
+            secondChosenCard.ToggleButton(false);
+        }
+
+        firstChosenCard = null;
+        secondChosenCard = null;
+        currentPickedCount = 0;
+        SetPuzzleState(PuzzleState.None);
     }
 
 }
