@@ -231,7 +231,6 @@ public class PuzzleManager : MonoBehaviour
         // if all cards have been matched
         if (matchedCardCount == cards.Count)
         {
-            print("all found");
             OnPuzzleSolved?.Invoke();
             if (data)
             {
