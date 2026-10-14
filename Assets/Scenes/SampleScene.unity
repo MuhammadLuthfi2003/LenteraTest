@@ -11681,7 +11681,7 @@ MonoBehaviour:
   puzzleUI: {fileID: 574979091}
   data: {fileID: 0}
   cardPrefab: {fileID: 448873807144669485, guid: 225c3fca80af20b45800c024188b697d, type: 3}
-  revealAllForTesting: 0
+  revealAllForTesting: 1
   currentPodium: {fileID: 0}
   firstChosenCard: {fileID: 0}
   secondChosenCard: {fileID: 0}

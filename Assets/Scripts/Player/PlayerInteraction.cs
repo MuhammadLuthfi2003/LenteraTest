@@ -115,7 +115,8 @@ public class PlayerInteraction : MonoBehaviour
 
     private void InteractPressed(InputAction.CallbackContext context)
     {
-        if (CurrentTarget != null)
+        // currentTargetTransform uses Unity's null check, so destroyed objects count as null
+        if (CurrentTarget != null && currentTargetTransform != null)
         {
             CurrentTarget.Interact(this);
         }
@@ -213,12 +214,19 @@ public class PlayerInteraction : MonoBehaviour
 
     private void SetTarget(IInteractable target, Transform targetTransform)
     {
-        if (targetTransform == currentTargetTransform) return;
+        // Destroyed objects look null to ==, so compare raw references instead
+        if (ReferenceEquals(targetTransform, currentTargetTransform)) return;
 
-        CurrentTarget?.OnLostFocus(this);
+        // Only notify the old target if it still exists
+        if (currentTargetTransform != null)
+            CurrentTarget?.OnLostFocus(this);
+
         currentTargetTransform = targetTransform;
         CurrentTarget = target;
-        CurrentTarget?.OnFocus(this);
+
+        if (targetTransform != null)
+            CurrentTarget?.OnFocus(this);
+
         TargetChanged?.Invoke(target);
     }
 

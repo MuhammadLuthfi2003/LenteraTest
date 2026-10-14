@@ -117,6 +117,7 @@ public class PuzzleManager : MonoBehaviour
 
         GameManager.Instance.SetState(GameStates.Running);
         Clear();
+        data = null;
         SetPuzzleState(PuzzleState.None);
     }
 
@@ -242,6 +243,7 @@ public class PuzzleManager : MonoBehaviour
                 currentPodium = null;
             }
 
+            data = null;
             matchedCardCount = 0;
 
         }
