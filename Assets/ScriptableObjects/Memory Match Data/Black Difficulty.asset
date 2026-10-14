@@ -29,4 +29,5 @@ MonoBehaviour:
   maxMistakes: 0
   hasPenalty: 1
   matchPoints: 100
+  pairPoints: 10
   mismatchPenalty: 5

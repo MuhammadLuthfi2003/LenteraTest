@@ -238,11 +238,13 @@ public class PuzzleManager : MonoBehaviour
         // if all cards have been matched
         if (matchedCardCount == cards.Count)
         {
-            OnPuzzleSolved?.Invoke();
             if (data)
             {
                 OnAddScore?.Invoke(data.MatchPoints);
             }
+
+            OnPuzzleSolved?.Invoke();
+
             if (currentPodium)
             {
                 Destroy(currentPodium.gameObject);
