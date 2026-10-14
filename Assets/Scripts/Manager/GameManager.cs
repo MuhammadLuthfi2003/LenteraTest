@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     private GameStates state = GameStates.Running; 
     public GameStates State { get { return state; } }
+    public PlayerMovement Player { get { return player; } }
 
     private void Awake()
     {

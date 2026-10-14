@@ -32,6 +32,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float sprintDuration = 5f;
     [SerializeField] private float sprintCooldown = 3f;
 
+    public float SprintDuration { get { return sprintDuration; } }
+    public float SprintCooldown { get { return sprintCooldown; } }
+
     private CharacterController characterController;
     private Vector3 velocity;
     private bool isGrounded = true;
@@ -48,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
     public event Action<float> OnMoveAction;
     public event Action OnJumped;
+    public event Action OnSprintAction;
 
     private void OnEnable()
     {
@@ -140,6 +144,7 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator SprintCycle()
     {
+        OnSprintAction?.Invoke();
         sprintState = SprintState.Sprinting;
         yield return new WaitForSeconds(sprintDuration);
         sprintState = SprintState.Cooldown;
