@@ -28,7 +28,8 @@ namespace MemoryMatch
 
         [Header("Scoring")]
         [SerializeField] private bool hasPenalty = false;
-        [SerializeField] private int matchPoints = 100;
+        [SerializeField] private int matchPoints = 100; // added when all pairs have been found
+        [SerializeField] private int pairPoints = 10; // added when player found the pair
         [SerializeField] private int mismatchPenalty = 10;
 
         // ---- Grid ----
@@ -50,6 +51,7 @@ namespace MemoryMatch
         public bool HasMistakeLimit => maxMistakes > 0;
 
         // ---- Scoring ----
+        public int PairPoints => pairPoints;
         public bool HasPenalty => hasPenalty;
         public int MatchPoints => matchPoints;
         public int MismatchPenalty => mismatchPenalty;

@@ -27,6 +27,7 @@ public class PuzzleManager : MonoBehaviour
     private readonly List<Card> cards = new List<Card>();
 
     [Header("Readonly")]
+    [SerializeField] private InteractPodium currentPodium;
     [SerializeField] private Card firstChosenCard;
     [SerializeField] private Card secondChosenCard;
     private int currentPickedCount = 0;
@@ -46,6 +47,11 @@ public class PuzzleManager : MonoBehaviour
     private void OnDisable()
     {
         Card.OnCardChosen -= HandleChosenCard;
+    }
+
+    public void SetCurrentPodium(InteractPodium podium)
+    {
+        currentPodium = podium;
     }
 
     public void StartPuzzle(MemoryMatchData data)
@@ -178,6 +184,7 @@ public class PuzzleManager : MonoBehaviour
                 currentPickedCount++;
                 break;
             case 1:
+                if (firstChosenCard == card) return;
                 secondChosenCard = card;
                 SetPuzzleState(PuzzleState.Checking);
                 StartCoroutine(CheckPairs(1));
@@ -209,6 +216,11 @@ public class PuzzleManager : MonoBehaviour
             firstChosenCard.ToggleButton(false);
             secondChosenCard.ToggleButton(false);
             matchedCardCount += 2;
+
+            if (data)
+            {
+                OnAddScore?.Invoke(data.PairPoints);
+            }
         }
 
         firstChosenCard = null;
@@ -219,11 +231,20 @@ public class PuzzleManager : MonoBehaviour
         // if all cards have been matched
         if (matchedCardCount == cards.Count)
         {
+            print("all found");
             OnPuzzleSolved?.Invoke();
             if (data)
             {
                 OnAddScore?.Invoke(data.MatchPoints);
             }
+            if (currentPodium)
+            {
+                Destroy(currentPodium.gameObject);
+                currentPodium = null;
+            }
+
+            matchedCardCount = 0;
+
         }
     }
 
