@@ -119,6 +119,12 @@ public class PuzzleManager : MonoBehaviour
         Clear();
         data = null;
         SetPuzzleState(PuzzleState.None);
+
+        firstChosenCard = null;
+        secondChosenCard = null;
+        currentPickedCount = 0;
+        matchedCardCount = 0;
+
     }
 
 
