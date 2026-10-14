@@ -28,18 +28,18 @@ public class Win_UI : MonoBehaviour
     public void GameFinished(int finalScore = 0)
     {
         winUIPanel.SetActive(true);
+
+
+        StartCoroutine(DelayFinished(2, finalScore));
+    }
+
+    IEnumerator DelayFinished(float delay, int finalScore)
+    {
+        yield return new WaitForSeconds(delay);
         if (finalScoreText)
         {
             finalScoreText.text = "Final Score : " + finalScore.ToString();
         }
-
-        StartCoroutine(DelayFinished(2));
-    }
-
-    IEnumerator DelayFinished(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
 
         if (GameManager.Instance)
         {
