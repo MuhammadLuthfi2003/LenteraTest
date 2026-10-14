@@ -36,6 +36,7 @@ public class PuzzleManager : MonoBehaviour
     public PuzzleState State { get { return currentState; } }
 
     public static event Action OnPuzzleSolved;
+    public static event Action<int> OnAddScore;
 
     private void OnEnable()
     {
@@ -196,6 +197,11 @@ public class PuzzleManager : MonoBehaviour
         {
             firstChosenCard.SetFaceUp(false);
             secondChosenCard.SetFaceUp(false);
+
+            if (data && data.HasPenalty)
+            {
+                OnAddScore?.Invoke(-data.MismatchPenalty);
+            }
         }
         else
         {
@@ -214,6 +220,10 @@ public class PuzzleManager : MonoBehaviour
         if (matchedCardCount == cards.Count)
         {
             OnPuzzleSolved?.Invoke();
+            if (data)
+            {
+                OnAddScore?.Invoke(data.MatchPoints);
+            }
         }
     }
 

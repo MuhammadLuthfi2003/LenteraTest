@@ -26,12 +26,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 00e969d16dafda6489b918969465ac9a, type: 2}
   cardBack: {fileID: 21300000, guid: aec062983533de3448de85f008f8d95a, type: 3}
   cardBackTint: {r: 1, g: 1, b: 1, a: 1}
-  flipDuration: 0.25
-  mismatchRevealTime: 0.8
-  previewTime: 0
-  timeLimit: 0
   maxMistakes: 0
+  hasPenalty: 1
   matchPoints: 100
-  mismatchPenalty: 10
-  comboBonusPerStreak: 25
-  timeBonusPerSecondLeft: 5
+  mismatchPenalty: 5

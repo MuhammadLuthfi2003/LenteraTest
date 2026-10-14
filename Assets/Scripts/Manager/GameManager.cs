@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Managers")]
     [SerializeField] public PuzzleManager puzzleManager;
+    [SerializeField] public ScoreManager scoreManager;
 
     private GameStates state = GameStates.Running; 
     public GameStates State { get { return state; } }

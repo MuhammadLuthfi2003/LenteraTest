@@ -22,22 +22,14 @@ namespace MemoryMatch
         [SerializeField] private Sprite cardBack;
         [SerializeField] private Color cardBackTint = Color.white;
 
-        [Header("Timing (seconds)")]
-        [SerializeField, Min(0f)] private float flipDuration = 0.25f;
-        [SerializeField, Min(0f)] private float mismatchRevealTime = 0.8f;
-        [SerializeField, Min(0f)] private float previewTime = 0f;
-        [Tooltip("0 = no time limit")]
-        [SerializeField, Min(0f)] private float timeLimit = 0f;
-
         [Header("Rules")]
         [Tooltip("0 = unlimited mistakes")]
         [SerializeField, Min(0)] private int maxMistakes = 0;
 
         [Header("Scoring")]
+        [SerializeField] private bool hasPenalty = false;
         [SerializeField] private int matchPoints = 100;
         [SerializeField] private int mismatchPenalty = 10;
-        [SerializeField] private int comboBonusPerStreak = 25;
-        [SerializeField] private int timeBonusPerSecondLeft = 5;
 
         // ---- Grid ----
         public int Rows => rows;
@@ -53,22 +45,14 @@ namespace MemoryMatch
         public Sprite CardBack => cardBack;
         public Color CardBackTint => cardBackTint;
 
-        // ---- Timing ----
-        public float FlipDuration => flipDuration;
-        public float MismatchRevealTime => mismatchRevealTime;
-        public float PreviewTime => previewTime;
-        public float TimeLimit => timeLimit;
-        public bool HasTimeLimit => timeLimit > 0f;
-
         // ---- Rules ----
         public int MaxMistakes => maxMistakes;
         public bool HasMistakeLimit => maxMistakes > 0;
 
         // ---- Scoring ----
+        public bool HasPenalty => hasPenalty;
         public int MatchPoints => matchPoints;
         public int MismatchPenalty => mismatchPenalty;
-        public int ComboBonusPerStreak => comboBonusPerStreak;
-        public int TimeBonusPerSecondLeft => timeBonusPerSecondLeft;
 
         /// <summary>Returns true if this data can produce a playable board.</summary>
         public bool Validate(out string error)
