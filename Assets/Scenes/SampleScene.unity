@@ -551,7 +551,7 @@ GameObject:
   - component: {fileID: 105295042}
   - component: {fileID: 105295041}
   - component: {fileID: 105295040}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2040,6 +2040,13 @@ MonoBehaviour:
   distance: 5
   minDistance: 1
   maxDistance: 10
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 128
+  collisionRadius: 0.25
+  collisionBuffer: 0.1
+  pivotHeight: 1.5
+  collisionSmoothTime: 0.08
   smoothTime: 0.12
 --- !u!1001 &993608784
 PrefabInstance:
@@ -4253,6 +4260,10 @@ PrefabInstance:
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 963194228}
+    - target: {fileID: 2493713891527197420, guid: ceb20caacd364d54b9d3e1e3ed12e5a5, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 3308335444584225954, guid: ceb20caacd364d54b9d3e1e3ed12e5a5, type: 3}
       propertyPath: m_Name
       value: Player
